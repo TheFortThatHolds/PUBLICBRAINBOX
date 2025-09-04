@@ -1,0 +1,58 @@
+# BrainBox - Keep private data local
+brainbox_data/
+*.db
+*.pkl
+*.json
+.env
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+pip-wheel-metadata/
+share/python-wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# IDEs
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Personal conversation data
+conversations.json
+chatgpt_conversations.json
+exports/
+
+# Test files
+test_*.py
+*_test.py
+
+# Personal configs
+config_personal.py
+*.personal.*
+
+# Windows garbage files
+nul
+ForPublic/BrainBox/nul
