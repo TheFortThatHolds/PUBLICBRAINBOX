@@ -616,8 +616,10 @@ class UnifiedBrainBox:
         
         # Phase 2: Memory context (if relevant)
         memory_context = []
-        if len(user_input.split()) > 3:  # Only search for substantial queries
+        if len(user_input.split()) > 0:  # Search for any query
             memory_context = self.memory.search_memory(user_input, limit=3)
+            if memory_context:
+                print(f"[MEMORY] Found {len(memory_context)} relevant memories")
         
         # Phase 3: Create processing context
         processing_context = {
@@ -637,7 +639,7 @@ class UnifiedBrainBox:
             if not hasattr(self, 'llm_integrator'):
                 self.llm_integrator = EnhancedLLMIntegrator()  # LOCAL-FIRST by default
                 self.llm_config = BrainBoxLLMConfig()
-                print("🔒 BrainBox initialized in LOCAL-FIRST mode")
+                print("[SECURE] BrainBox initialized in LOCAL-FIRST mode")
             
             # Generate response using intelligent routing
             llm_result = self.llm_integrator.generate_response(user_input, processing_context, mode)
@@ -653,7 +655,7 @@ class UnifiedBrainBox:
             
         except ImportError as e:
             # Fallback to placeholder responses if LLM integration not available
-            print(f"🚨 LLM IMPORT ERROR: {e}")
+            print(f"[ERROR] LLM IMPORT ERROR: {e}")
             print("Falling back to placeholder responses")
             if routing["processing_mode"] == "business":
                 response = self._generate_business_response(user_input, processing_context)
@@ -661,7 +663,7 @@ class UnifiedBrainBox:
                 response = self._generate_creative_response(user_input, processing_context)
         except Exception as e:
             # Catch any other errors
-            print(f"🚨 LLM ERROR: {e}")
+            print(f"[ERROR] LLM ERROR: {e}")
             print("Falling back to placeholder responses")
             if routing["processing_mode"] == "business":
                 response = self._generate_business_response(user_input, processing_context)
@@ -702,7 +704,8 @@ class UnifiedBrainBox:
             "memory_card": card.id,
             "session_id": self.current_session,
             "node_id": self.node_id,
-            "enterprise_mode": self.enterprise_mode
+            "enterprise_mode": self.enterprise_mode,
+            "memories_found": memory_context  # Add found memories to result
         }
         
         # Log complete interaction

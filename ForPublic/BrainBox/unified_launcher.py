@@ -234,6 +234,15 @@ class BrainBoxLauncher:
             # Process query
             result = brain.process_query(message, "auto")
             
+            # Show memories found (if any)
+            memories = result.get('memories_found', [])
+            if memories:
+                memory_text = f"🧠 MEMORY SEARCH RESULTS ({len(memories)} found):\n\n"
+                for i, memory in enumerate(memories, 1):
+                    memory_text += f"Memory {i}: {memory.title}\n"
+                    memory_text += f"  {memory.body[:200]}{'...' if len(memory.body) > 200 else ''}\n\n"
+                self.add_chat_message("System", memory_text, "system")
+            
             # Show response
             response = result['response']
             self.add_chat_message("BrainBox", response, "assistant")
