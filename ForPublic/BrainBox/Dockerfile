@@ -21,6 +21,13 @@ COPY llm_router.py .
 COPY llm_integrator.py .
 COPY llm_config.py .
 
+# Copy memory integration files
+COPY memory_voice_integration.py .
+COPY memory_spirallogic_integration.py .
+COPY test_memory_voices.py .
+COPY unicode_sanitizer.py .
+COPY MEMORY_INTEGRATION_README.md .
+
 # Create data directory
 RUN mkdir -p brainbox_data
 
