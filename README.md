@@ -20,20 +20,20 @@ BrainBox v3 is a model-agnostic AI system with a "growing spine" that learns fro
 pip install -r requirements.txt
 ```
 
-### 2. Configure Your LLM
+### 2. Launch BrainBox  
 ```bash
-python configure_models.py
+python brainbox_cli.py
 ```
-Choose from:
-- Local model servers
-- Major cloud AI APIs  
-- Fast inference services
-- Custom API endpoints
 
-### 3. Launch BrainBox
+Or use the interactive launcher:
 ```bash
-python unified_brainbox.py
+python unified_launcher.py
 ```
+
+### 3. Configure Your LLM (Optional)
+BrainBox auto-detects local models. For custom setup:
+- Edit connection settings via environment variables
+- Or use the interactive configuration in the launcher
 
 ### 4. Start Interacting
 Your spine begins with basic assistants:
@@ -87,11 +87,11 @@ python spine_brain_integration.py train
 ## 📁 Core Files
 
 ### Essential Runtime Files
+- `brainbox_cli.py` - Command-line interface
 - `unified_brainbox.py` - Main BrainBox system
 - `growing_spine_manager.py` - Growing spine intelligence
 - `spine_brain_integration.py` - SpiralNet evolution system
-- `configure_models.py` - Model configuration tool
-- `enhanced_llm_integrator.py` - LLM API integration
+- `llm_client.py` - Model-agnostic LLM integration
 - `unicode_sanitizer.py` - Cross-platform text handling
 
 ### SpineTrainer System
@@ -133,7 +133,7 @@ For contributions, please open an issue first to discuss proposed changes before
 git clone <repository>
 cd BrainBox
 pip install -r requirements.txt
-python configure_models.py
+python brainbox_cli.py --status
 ```
 
 ## 🎯 Philosophy
@@ -157,7 +157,7 @@ BrainBox represents a different approach to AI development:
 BrainBox v3 is designed to be self-configuring and adaptive. If you encounter issues:
 
 1. Check the console output for error messages
-2. Verify your LLM configuration with `python configure_models.py`
+2. Check your system status with `python brainbox_cli.py --status`
 3. Review the system status with `python spine_brain_integration.py status`
 
 ## 📜 License
