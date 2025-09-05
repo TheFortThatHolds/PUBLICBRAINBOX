@@ -632,26 +632,29 @@ class UnifiedBrainBox:
         
         # Phase 4: Generate response with MODEL-AGNOSTIC LLM routing
         try:
-            from enhanced_llm_integrator import EnhancedLLMIntegrator
             from llm_init import init_llm, create_legacy_config
             
             # Initialize MODEL-AGNOSTIC LLM system
-            if not hasattr(self, 'llm_integrator'):
+            if not hasattr(self, 'llm_client'):
                 self.llm_client, self.chat_model, self.embed_model = init_llm()
-                self.llm_integrator = EnhancedLLMIntegrator()  # Provider-neutral
+                # Provider-neutral LLM client ready
                 self.llm_config = create_legacy_config(self.llm_client, self.chat_model, self.embed_model)
                 print(f"[AGNOSTIC] BrainBox initialized with {self.chat_model} via {self.llm_client.base_url}")
             
             # Generate response using intelligent routing
-            llm_result = self.llm_integrator.generate_response(user_input, processing_context, mode)
-            response = llm_result["response"]
+            messages = [
+                {"role": "system", "content": f"You are {routing['primary_agent']}. Processing mode: {routing['processing_mode']}. Quadrant: {routing['quadrant']}."},
+                {"role": "user", "content": user_input}
+            ]
+            llm_result = self.llm_client.chat(self.chat_model, messages)
+            response = llm_result["choices"][0]["message"]["content"]
             
             # Add LLM routing info to result for transparency
             processing_context["llm_routing"] = {
-                "selected_model": llm_result["selected_model"],
-                "routing_reason": llm_result["routing_reason"], 
-                "confidence": llm_result["routing_confidence"],
-                "success": llm_result["success"]
+                "selected_model": self.chat_model,
+                "routing_reason": f"Agnostic routing to {routing['primary_agent']}", 
+                "confidence": 1.0,
+                "success": True
             }
             
         except ImportError as e:

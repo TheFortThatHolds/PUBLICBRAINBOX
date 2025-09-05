@@ -15,34 +15,20 @@ BrainBox v3 is a model-agnostic AI system with a "growing spine" that learns fro
 
 ## 🚀 Quick Start
 
-### 1. Install Dependencies
-```bash
-pip install -r requirements.txt
-```
-
-### 2. Launch BrainBox  
 ```bash
 python brainbox_cli.py
 ```
 
-Or use the interactive launcher:
+That's it. Type a message and it works.
+
+*(Requires local LLM server like LM Studio running on localhost:1234)*
+
+### Setup (if needed)
 ```bash
-python unified_launcher.py
+pip install -r requirements.txt  # Only if you get import errors
 ```
 
-### 3. Configure Your LLM (Optional)
-BrainBox auto-detects local models. For custom setup:
-- Edit connection settings via environment variables
-- Or use the interactive configuration in the launcher
-
-### 4. Start Interacting
-Your spine begins with basic assistants:
-- Search Assistant (information retrieval)
-- Planning Assistant (organization & strategy)  
-- Creative Assistant (brainstorming & ideas)
-- Support Assistant (emotional support)
-
-As you use the system, new capabilities will unlock organically.
+BrainBox auto-detects local AI models and just works.
 
 ## 🧠 SpiralNet Evolution
 
