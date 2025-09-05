@@ -8,7 +8,10 @@ scikit-learn>=1.1.0
 # Large file processing
 ijson>=3.2.0  # Streaming JSON parser for 100MB+ files
 
-# Optional LLM integration
+# Model-agnostic HTTP client (replaces provider-specific SDKs)
+httpx>=0.24.0
+
+# Legacy LLM integrations (for backward compatibility)
 aiohttp>=3.8.0
 openai>=1.0.0
 anthropic>=0.7.0

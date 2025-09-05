@@ -630,16 +630,17 @@ class UnifiedBrainBox:
             "node_id": self.node_id
         }
         
-        # Phase 4: Generate response with LOCAL-FIRST LLM routing
+        # Phase 4: Generate response with MODEL-AGNOSTIC LLM routing
         try:
             from enhanced_llm_integrator import EnhancedLLMIntegrator
-            from llm_config import BrainBoxLLMConfig
+            from llm_init import init_llm, create_legacy_config
             
-            # Initialize LOCAL-FIRST LLM system
+            # Initialize MODEL-AGNOSTIC LLM system
             if not hasattr(self, 'llm_integrator'):
-                self.llm_integrator = EnhancedLLMIntegrator()  # LOCAL-FIRST by default
-                self.llm_config = BrainBoxLLMConfig()
-                print("[SECURE] BrainBox initialized in LOCAL-FIRST mode")
+                self.llm_client, self.chat_model, self.embed_model = init_llm()
+                self.llm_integrator = EnhancedLLMIntegrator()  # Provider-neutral
+                self.llm_config = create_legacy_config(self.llm_client, self.chat_model, self.embed_model)
+                print(f"[AGNOSTIC] BrainBox initialized with {self.chat_model} via {self.llm_client.base_url}")
             
             # Generate response using intelligent routing
             llm_result = self.llm_integrator.generate_response(user_input, processing_context, mode)

@@ -1,26 +1,22 @@
-# llm_config.py — compatibility shim
-import json, pathlib, os
+# llm_config.py - compatibility shim for unified_brainbox.py
+# DEPRECATED: Use config_loader.py + llm_client.py for new code
 
-CFG_PATH = pathlib.Path("brainbox_config.json")
+from config_loader import load_config
 
-def _load():
-    if CFG_PATH.exists():
-        with CFG_PATH.open() as f:
-            return json.load(f)
-    return {
-        "api": {
-            "base_url": "http://localhost:1234/v1",
-            "chat_model": "qwen3-4b-instruct-2507",
-            "embed_model": "text-embedding-nomic-embed-text-v1.5",
-            "api_key": os.getenv("OPENAI_API_KEY", "")
-        }
-    }
+class BrainBoxLLMConfig:
+    """Compatibility class for legacy imports"""
+    def __init__(self, cfg=None):
+        cfg = cfg or load_config()
+        self.base_url   = cfg["base_url"]
+        self.chat_model = cfg["chat_model"]
+        self.embed_model= cfg["embed_model"]
+        self.api_key    = cfg["api_key"]
+        self.timeout    = cfg["timeout"]
 
-CFG = _load()
-
-# Expose values for old code
-BASE_URL   = CFG["api"].get("base_url")
-CHAT_MODEL = CFG["api"].get("chat_model")
-EMBED_MODEL= CFG["api"].get("embed_model")
-API_KEY    = CFG["api"].get("api_key", "")
-TIMEOUT    = CFG["api"].get("timeout", 30)
+# Legacy compatibility exports
+CONFIG = BrainBoxLLMConfig()
+BASE_URL = CONFIG.base_url
+CHAT_MODEL = CONFIG.chat_model
+EMBED_MODEL = CONFIG.embed_model
+API_KEY = CONFIG.api_key
+TIMEOUT = CONFIG.timeout

@@ -1,0 +1,45 @@
+﻿import json, pathlib, os
+
+class BrainBoxLLMConfig:
+    """
+    Compatibility shim so older code `from llm_config import BrainBoxLLMConfig` keeps working.
+    Loads values from brainbox_config.json written by configure_models.py.
+    """
+    def __init__(self, cfg=None):
+        if cfg is None:
+            cfg = self._load()
+        api = cfg.get("api", {})
+        self.base_url   = api.get("base_url", "http://localhost:1234/v1")
+        self.chat_model = api.get("chat_model", "qwen3-4b-instruct-2507")
+        self.embed_model= api.get("embed_model", "text-embedding-nomic-embed-text-v1.5")
+        # allow env override for cloud keys
+        self.api_key    = api.get("api_key") or os.getenv("OPENAI_API_KEY", "")
+        self.timeout    = api.get("timeout", 30)
+
+    @staticmethod
+    def _load():
+        # look in repo first, then next to this file
+        candidates = [
+            pathlib.Path("brainbox_config.json"),
+            pathlib.Path(__file__).parent / "brainbox_config.json",
+        ]
+        for p in candidates:
+            if p.exists():
+                with p.open() as f:
+                    return json.load(f)
+        return {}
+
+    # helpful helpers in case callers expect them
+    def headers(self):
+        h = {}
+        if self.api_key:
+            h["Authorization"] = f"Bearer {self.api_key}"
+        return h
+
+# expose a singleton & legacy constants for any weird callers
+CONFIG      = BrainBoxLLMConfig()
+BASE_URL    = CONFIG.base_url
+CHAT_MODEL  = CONFIG.chat_model
+EMBED_MODEL = CONFIG.embed_model
+API_KEY     = CONFIG.api_key
+TIMEOUT     = CONFIG.timeout
