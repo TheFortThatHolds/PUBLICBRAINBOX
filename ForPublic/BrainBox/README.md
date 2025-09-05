@@ -11,7 +11,7 @@ BrainBox v3 is a model-agnostic AI system with a "growing spine" that learns fro
 - **SpiralNet Evolution**: After 1000+ interactions, offers consent-based evolution to personal mirror
 - **Privacy First**: All learning happens locally, your data stays yours
 - **Emotionally Aware**: Recognizes patterns, intensity, and context in your requests
-- **Apache 2.0 Licensed**: Open source for commercial and personal use
+- **Dual Licensed**: Free for personal/community use, commercial licensing available
 
 ## 🚀 Quick Start
 
@@ -125,7 +125,7 @@ BrainBox v3 is built with privacy and consent as core principles:
 
 ## 🤝 Contributing
 
-BrainBox v3 is open source under Apache 2.0 license. Contributions welcome!
+BrainBox v3 is dual licensed - see LICENSE.txt for details. Contributions welcome!
 
 ### Development Setup
 ```bash
@@ -161,7 +161,14 @@ BrainBox v3 is designed to be self-configuring and adaptive. If you encounter is
 
 ## 📜 License
 
-Apache 2.0 License - Use freely for commercial and personal projects.
+**Dual Licensed by The Fort That Holds LLC**
+
+- **Personal/Community Use**: Free with attribution
+- **Commercial Use**: Requires paid license
+
+See `LICENSE.txt` for complete terms. Contact thefortthatholds@gmail.com for commercial licensing.
+
+**Integration Notice**: This project may integrate with Higgsfield (Apache 2.0 licensed) for future model training capabilities.
 
 ---
 

@@ -1,0 +1,41 @@
+# 🛡️ DUAL LICENSE NOTICE  
+This notice governs the licensing of systems, tools, frameworks, code, and other intellectual property published via public repositories managed by the publisher.
+
+---
+
+## COVERED WORKS  
+This license applies to all works published in and accessible through official repositories maintained by the publisher.
+
+Repository Index:  
+**https://github.com/thefortthatholds**
+
+---
+
+## 🌱 COMMUNITY LICENSE — NON-COMMERCIAL USE  
+
+You may use, modify, and share these works for personal, family, educational, therapeutic, or community purposes under the following conditions:
+
+- Attribution to **The Fort That Holds LLC** must be maintained  
+- No commercial use or monetization is permitted  
+- Derivative works must be shared under similar non-commercial terms  
+- Ethical use is expected: non-extractive, non-surveillance, non-military applications only
+
+---
+
+## 💰 COMMERCIAL LICENSE — MARKET STANDARD + 1%  
+
+Commercial use—including monetization, resale, enterprise deployment, or integration into commercial services—**requires a paid license.**
+
+Licenses are priced at **prevailing market rates plus a 1% sovereignty margin**, based on administrative costs and value of the IP. Rates may be reviewed quarterly.
+
+All licensing is offered and enforced by:
+
+> **The Fort That Holds LLC**  
+> Licensing Administrator  
+> Contact: thefortthatholds@gmail.com
+
+---
+
+## ⚠️ DISCLAIMER  
+
+This document summarizes the licensing framework. It does not by itself constitute a full legal agreement. Formal contracts may be required for enterprise or high-volume use cases.
