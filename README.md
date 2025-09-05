@@ -23,6 +23,17 @@ That's it. Type a message and it works.
 
 *(Requires local LLM server like LM Studio running on localhost:1234)*
 
+### Optional: Global Command
+To use `brainbox` from anywhere:
+```bash
+# Windows: Run once
+install_global.bat
+
+# Then from anywhere:
+brainbox --status
+brainbox
+```
+
 ### Setup (if needed)
 ```bash
 pip install -r requirements.txt  # Only if you get import errors

@@ -306,12 +306,12 @@ class MaduguController:
     def __init__(self, breakfast_chain: UniversalBreakfastChain):
         self.breakfast_chain = breakfast_chain
         
-        # Madugu quadrant agents
+        # Generic starter voice agents - neutral personalities for any user
         self.quadrant_agents = {
-            QuadrantDomain.NORTH: ["TheDevil", "TheClerk", "TheHerald"],     # Structure/Contract/Power
-            QuadrantDomain.EAST: ["TheVerifier", "TheWitness", "TheCartographer"],  # Insight/Mind
-            QuadrantDomain.SOUTH: ["TheStorykeeper", "TheMirror", "TheKin"],        # Story/Emotion
-            QuadrantDomain.WEST: ["TheArchivist", "TheMedic", "TheEmber"]           # Body/Record
+            QuadrantDomain.NORTH: ["TheAnalyst", "TheManager", "TheStrategist"],     # Structure/Logic/Planning
+            QuadrantDomain.EAST: ["TheExplorer", "TheResearcher", "TheInnovator"],   # Discovery/Learning/Insight
+            QuadrantDomain.SOUTH: ["TheCreator", "TheHelper", "TheStoryteller"],     # Expression/Support/Connection
+            QuadrantDomain.WEST: ["TheOrganizer", "TheArchivist", "TheReflector"]    # Memory/Systems/Organization
         }
         
         # Emotional classification keywords
@@ -606,11 +606,11 @@ class UnifiedBrainBox:
         # Phase 1.5: Mode guardrails override routing
         if mode == "creative":
             routing["quadrant"] = "south"  # Force creative/expressive domain
-            routing["primary_agent"] = "TheStorykeeper" 
+            routing["primary_agent"] = "TheCreator" 
             routing["processing_mode"] = "creative"
         elif mode == "business":
             routing["quadrant"] = "north"  # Force business/structure domain
-            routing["primary_agent"] = "TheClerk"
+            routing["primary_agent"] = "TheAnalyst"
             routing["processing_mode"] = "business"
         # "auto" mode respects original Madugu routing
         
@@ -641,9 +641,12 @@ class UnifiedBrainBox:
                 self.llm_config = create_legacy_config(self.llm_client, self.chat_model, self.embed_model)
                 print(f"[AGNOSTIC] BrainBox initialized with {self.chat_model} via {self.llm_client.base_url}")
             
-            # Generate response using intelligent routing
+            # Generate response using intelligent routing with generic voice system
+            from generic_voices import get_voice_system_prompt
+            voice_prompt = get_voice_system_prompt(routing['primary_agent'])
+            
             messages = [
-                {"role": "system", "content": f"You are {routing['primary_agent']}. Processing mode: {routing['processing_mode']}. Quadrant: {routing['quadrant']}."},
+                {"role": "system", "content": voice_prompt},
                 {"role": "user", "content": user_input}
             ]
             llm_result = self.llm_client.chat(self.chat_model, messages)
