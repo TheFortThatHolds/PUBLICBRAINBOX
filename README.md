@@ -6,7 +6,7 @@ BrainBox v3 is a model-agnostic AI system with a "growing spine" that learns fro
 
 ## 🌟 Key Features
 
-- **Model Agnostic**: Works with any LLM (LM Studio, OpenAI, Claude, Groq, custom APIs)
+- **Model Agnostic**: Works with any LLM (local models, cloud APIs, custom endpoints)
 - **Growing Spine**: Starts simple, unlocks capabilities based on usage patterns
 - **SpiralNet Evolution**: After 1000+ interactions, offers consent-based evolution to personal mirror
 - **Privacy First**: All learning happens locally, your data stays yours
@@ -25,10 +25,9 @@ pip install -r requirements.txt
 python configure_models.py
 ```
 Choose from:
-- LM Studio (local models)
-- OpenAI GPT-4/3.5
-- Claude 3.5 Sonnet
-- Groq (fast inference)
+- Local model servers
+- Major cloud AI APIs  
+- Fast inference services
 - Custom API endpoints
 
 ### 3. Launch BrainBox
@@ -125,7 +124,9 @@ BrainBox v3 is built with privacy and consent as core principles:
 
 ## 🤝 Contributing
 
-BrainBox v3 is dual licensed - see LICENSE.txt for details. Contributions welcome!
+BrainBox v3 is dual licensed - see LICENSE.txt for details. 
+
+For contributions, please open an issue first to discuss proposed changes before submitting pull requests.
 
 ### Development Setup
 ```bash
