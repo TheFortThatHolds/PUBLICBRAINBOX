@@ -23,18 +23,38 @@ def main():
     os.chdir(BRAINBOX_DIR)
     
     try:
-        from unified_brainbox import main as brainbox_main
+        # Import BrainBox system and create interactive session
+        from unified_brainbox import UnifiedBrainBox
         
-        print("🧠 BrainBox AI Spine Activated")
+        print("[BRAIN] BrainBox AI Spine Activated")
         print("=" * 40)
         
-        # Pass command line args to BrainBox
-        brainbox_main()
+        # Initialize and start interactive session
+        brainbox = UnifiedBrainBox()
+        
+        if len(sys.argv) > 1 and "--help" in sys.argv:
+            print("BrainBox Commands:")
+            print("  brainbox           - Start interactive session")
+            print("  brainbox --help    - Show this help")
+            print("  brainbox --status  - Show system status")
+            return
+            
+        print("Type your query or 'exit' to quit...")
+        while True:
+            try:
+                user_input = input("\n[YOU]: ").strip()
+                if user_input.lower() in ['exit', 'quit', 'bye']:
+                    break
+                if user_input:
+                    response = brainbox.process_query(user_input)
+                    print(f"\n[BRAIN]: {response}")
+            except KeyboardInterrupt:
+                break
         
     except KeyboardInterrupt:
-        print("\n\n🧠 BrainBox spine deactivated. Until next time...")
+        print("\n\n[BRAIN] BrainBox spine deactivated. Until next time...")
     except Exception as e:
-        print(f"❌ BrainBox initialization failed: {e}")
+        print(f"[ERROR] BrainBox initialization failed: {e}")
         print(f"Working directory: {os.getcwd()}")
         print("Try running from the BrainBox installation directory.")
         sys.exit(1)
