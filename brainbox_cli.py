@@ -10,6 +10,7 @@ Just like typing 'claude' summons Claude Code CLI.
 import sys
 import os
 from pathlib import Path
+from unicode_sanitizer import sanitize_for_windows_terminal
 
 # Add the BrainBox directory to Python path
 BRAINBOX_DIR = Path(__file__).parent.resolve()
@@ -32,12 +33,18 @@ def main():
         # Initialize and start interactive session
         brainbox = UnifiedBrainBox()
         
-        if len(sys.argv) > 1 and "--help" in sys.argv:
-            print("BrainBox Commands:")
-            print("  brainbox           - Start interactive session")
-            print("  brainbox --help    - Show this help")
-            print("  brainbox --status  - Show system status")
-            return
+        if len(sys.argv) > 1:
+            if "--help" in sys.argv:
+                print("BrainBox Commands:")
+                print("  brainbox           - Start interactive session")
+                print("  brainbox --help    - Show this help")
+                print("  brainbox --status  - Show system status")
+                return
+            elif "--status" in sys.argv:
+                print(f"[BRAIN STATUS] System initialized successfully")
+                print(f"[BRAIN STATUS] Working directory: {os.getcwd()}")
+                print(f"[BRAIN STATUS] BrainBox ready for queries")
+                return
             
         print("Type your query or 'exit' to quit...")
         while True:
@@ -46,8 +53,12 @@ def main():
                 if user_input.lower() in ['exit', 'quit', 'bye']:
                     break
                 if user_input:
-                    response = brainbox.process_query(user_input)
-                    print(f"\n[BRAIN]: {response}")
+                    response_dict = brainbox.process_query(user_input)
+                    # Extract the actual response text
+                    response_text = response_dict.get('response', str(response_dict))
+                    # Sanitize response for Windows terminal
+                    safe_response = sanitize_for_windows_terminal(response_text)
+                    print(f"\n[BRAIN]: {safe_response}")
             except KeyboardInterrupt:
                 break
         

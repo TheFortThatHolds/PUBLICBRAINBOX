@@ -29,15 +29,20 @@ def sanitize_for_windows_terminal(text):
     for char in text:
         if ord(char) < 127:  # Basic ASCII
             sanitized += char
-        elif ord(char) in [8211, 8212, 8216, 8217, 8220, 8221]:  # Common punctuation
+        elif ord(char) in [8211, 8212, 8216, 8217, 8220, 8221, 8594, 8592, 8593, 8595, 8596]:  # Common punctuation + arrows
             # Replace with ASCII equivalents
             replacements = {
-                8211: '-',  # en dash
-                8212: '--', # em dash
-                8216: "'",  # left single quote
-                8217: "'",  # right single quote
-                8220: '"',  # left double quote
-                8221: '"'   # right double quote
+                8211: '-',   # en dash
+                8212: '--',  # em dash
+                8216: "'",   # left single quote
+                8217: "'",   # right single quote
+                8220: '"',   # left double quote
+                8221: '"',   # right double quote
+                8594: '->',  # right arrow →
+                8592: '<-',  # left arrow ←
+                8593: '^',   # up arrow ↑
+                8595: 'v',   # down arrow ↓
+                8596: '<->', # left right arrow ↔
             }
             sanitized += replacements.get(ord(char), char)
         else:
