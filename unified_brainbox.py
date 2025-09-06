@@ -566,6 +566,10 @@ class UnifiedBrainBox:
         self.madugu = MaduguController(self.breakfast_chain)
         self.memory = EnhancedMemorySystem(data_dir, self.breakfast_chain)
         
+        # Conversation history for context retention
+        self.conversation_history = []
+        self.max_history = 10  # Keep last 10 exchanges
+        
         # Enterprise settings
         self.enterprise_mode = False
         self.node_id = self._generate_node_id()
@@ -645,12 +649,27 @@ class UnifiedBrainBox:
             from generic_voices import get_voice_system_prompt
             voice_prompt = get_voice_system_prompt(routing['primary_agent'])
             
+            # Build messages with conversation history
             messages = [
-                {"role": "system", "content": voice_prompt},
-                {"role": "user", "content": user_input}
+                {"role": "system", "content": voice_prompt}
             ]
+            
+            # Add conversation history for context
+            messages.extend(self.conversation_history[-self.max_history:])
+            
+            # Add current user input
+            messages.append({"role": "user", "content": user_input})
+            
             llm_result = self.llm_client.chat(self.chat_model, messages)
             response = llm_result["choices"][0]["message"]["content"]
+            
+            # Store conversation in history
+            self.conversation_history.append({"role": "user", "content": user_input})
+            self.conversation_history.append({"role": "assistant", "content": response})
+            
+            # Keep history manageable
+            if len(self.conversation_history) > self.max_history * 2:
+                self.conversation_history = self.conversation_history[-self.max_history * 2:]
             
             # Add LLM routing info to result for transparency
             processing_context["llm_routing"] = {
